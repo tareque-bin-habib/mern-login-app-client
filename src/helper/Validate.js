@@ -24,8 +24,6 @@ function userNameVerify(error = {}, values) {
 
 
 
-
-
 /** Validate password */
 
 export async function passwordValidate(values) {
@@ -52,6 +50,19 @@ function passwordVerify(errors = {}, values) {
     else if (!specialCaracters.test(values.password)) {
         errors.password = toast.error('Password must have special charecters')
 
+    }
+
+    return errors
+}
+
+
+/** Validate Reset Password */
+
+export async function resetPasswordValidation(values) {
+    const errors = passwordVerify({}, values)
+
+    if (values.password !== values.confirm_password) {
+        errors.exist = toast.error('password not matched')
     }
 
     return errors
