@@ -14,6 +14,8 @@ const Profile = () => {
 
     const formik = useFormik({
         initialValues: {
+            firstName: '',
+            lastName: '',
             email: '',
             userName: '',
             password: ''
@@ -53,8 +55,8 @@ const Profile = () => {
                         </div>
                         <div className='textbox flex flex-col items-center gap-6'>
                             <div className='name flex w-3/4 gap-10'>
-                                <input {...formik.getFieldProps('firstname')} className={styles.textbox} type="text" placeholder='First name' />
-                                <input {...formik.getFieldProps('lastname')} className={styles.textbox} type="text" placeholder='Last name' />
+                                <input {...formik.getFieldProps('firstName')} className={styles.textbox} type="text" placeholder='First name' />
+                                <input {...formik.getFieldProps('lastName')} className={styles.textbox} type="text" placeholder='Last name' />
                             </div>
                             <div className='name flex w-3/4 gap-10'>
                                 <input {...formik.getFieldProps('mobile')} className={styles.textbox} type="text" placeholder='Mobile Number' />
