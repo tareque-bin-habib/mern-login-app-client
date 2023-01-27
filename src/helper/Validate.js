@@ -56,6 +56,18 @@ function passwordVerify(errors = {}, values) {
 }
 
 
+/** Validate register form */
+
+export async function registerValidation(values) {
+    const errors = userNameVerify({}, values)
+    passwordVerify(errors, values)
+    emailVerify(errors, values)
+
+    return errors;
+}
+
+
+
 /** Validate Reset Password */
 
 export async function resetPasswordValidation(values) {
@@ -66,4 +78,16 @@ export async function resetPasswordValidation(values) {
     }
 
     return errors
+}
+
+/** Validate Email */
+
+function emailVerify(error = {}, values) {
+    if (!values.email) {
+        error.email = toast.error('Email required')
+    }
+    else if (values.email.includes(' ')) {
+        error.email = toast.error('Wrong Email')
+    }
+    return error
 }

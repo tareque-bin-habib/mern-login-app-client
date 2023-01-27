@@ -4,7 +4,9 @@ import avatar from '../assets/profile.png'
 import styles from '../styles/UserName.module.css'
 import { Toaster } from 'react-hot-toast';
 import { useFormik } from 'formik';
-import { passwordValidate } from '../helper/Validate'
+import { registerValidation } from '../helper/Validate'
+import convertToBase64 from '../helper/Convert'
+
 
 const Register = () => {
 
@@ -16,18 +18,19 @@ const Register = () => {
             userName: '',
             password: ''
         },
-        validate: passwordValidate,
+        validate: registerValidation,
         validateOnBlur: false,
         validateOnChange: false,
 
         onSubmit: async values => {
+            values = await Object.assign(values, { profile: file || '' })
             console.log(values)
         }
 
     });
 
     const onUpload = async e => {
-        const base64 = ''
+        const base64 = await convertToBase64(e.target.files[0]);
         setFile(base64)
     }
 
@@ -44,9 +47,9 @@ const Register = () => {
                     <form onSubmit={formik.handleSubmit} className='py-1'>
                         <div className='profile flex justify-center py-4'>
                             <label htmlFor="profile">
-                                <img src={avatar} className={styles.profile_img} alt="avatar" />
+                                <img src={file || avatar} className={styles.profile_img} alt="avatar" />
                             </label>
-                            <input type="file" id="profile" name='profile' />
+                            <input onChange={onUpload} type="file" id="profile" name='profile' />
                         </div>
                         <div className='textbox flex flex-col items-center gap-6'>
                             <input {...formik.getFieldProps('email')} className={styles.textbox} type="email" placeholder='Enter your email*' />
